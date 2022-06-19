@@ -8,7 +8,7 @@ const apiKey = '&appid=5beb43e13dc3fa8be428191e6e50a00c';
 
 //Get the date
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() +1+ '.' + d.getDate() + '.' + d.getFullYear();
 
 // when click on generate
 const generate = document.getElementById('generate');
@@ -34,6 +34,7 @@ function performAction(e) {
 const getWeather = async (baseURL, codeZip, apiKey) => {
   const res = await fetch(baseURL + codeZip + apiKey);
   try {
+
     const userData = await res.json();
     return userData;
   } catch (error) {
@@ -79,11 +80,30 @@ const updateUI = async () => {
   const request = await fetch('/all');
   try {
     const allData = await request.json()
+
     document.getElementById('date').innerHTML = allData.date;
-    document.getElementById('temp').innerHTML = allData.temp;
+    document.getElementById('temp').innerHTML = allData.temp + 'degrees';
     document.getElementById('content').innerHTML = allData.content;
   }
   catch (error) {
     console.log("error404", error);
   }
 };
+
+
+// const updateUI = async () =>{
+//   const request = await fetch('/all');
+//   try {
+//   // Transform into JSON
+//   const allData = await request.json()
+//   console.log(allData)
+//   // Write updated data to DOM elements
+//   document.getElementById('temp').innerHTML = Math.round(allData.temp)+ 'degrees';
+//   document.getElementById('content').innerHTML = allData.feel;
+//   document.getElementById("date").innerHTML =allData.date;
+//   }
+//   catch(error) {
+//     console.log("error", error);
+//     // appropriately handle the error
+//   }
+//  }
